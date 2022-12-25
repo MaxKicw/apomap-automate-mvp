@@ -1,6 +1,34 @@
 {
   "index": {
-    "title": "Automate your delivery service and help out!",
-    "subtitle": "With apomap automate, you can define your internal delivery service processes and then forget about them!"
+    "title": "Automate your delivery service and help!",
+    "subtitle": "With apomap automate, you can define your internal delivery service processes and then forget about them!",
+    "cmdk": "Click ⌘K to get started",
+    "featureSection": {
+      "title": "Briefly explain the process"
+    },
+    "connect": {
+      "title": "Connect interface",
+      "subtitle": "With one step, you can connect your POS system to apomap and automatically import orders"
+    },
+    "define": {
+      "title": "Define processes",
+      "subtitle": "You can digitally define your internal delivery service process in apomap in an intuitive way. The command interface, the drag-and-drop interface, and keyboard commands make it really fast"
+    },
+    "automate": {
+      "title": "Carry out deliveries",
+      "subtitle": "Your defined processes are now running automatically and you can use the apomap driver app to deliver packages to your messenger"
+    }
+  },
+  "command": {
+    "createAccount": {
+      "title": "Create account"
+    },
+    "createHubspot": {
+      "title": "Contact sales"
+    },
+    "loading": {
+      "title": "Loading..."
+    },
+    "placeholder": "⌘K - Type what you want to do!"
   }
 }
