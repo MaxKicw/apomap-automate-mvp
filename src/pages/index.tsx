@@ -14,6 +14,8 @@ import logo from "../../public/img/logo.png";
 import car from "../../public/img/xiao_car.png";
 import pos from "../../public/img/kasse.png";
 import system from "../../public/img/abfrage.png";
+import { useStore } from "../hooks/useStore";
+import { trpc } from "../utils/trpc";
 
 const FeatureCard: FunctionComponent<{
   title: string;
@@ -55,6 +57,8 @@ export interface SignInBoxProps {
 
 const Home: NextPage = () => {
   const { t } = useTranslation("common");
+  const store = useStore();
+  const createCommand = trpc.public.createCommand.useMutation();
   return (
     <div className="flex h-full w-full flex-col">
       <div className="z-2 h-full w-full  bg-primary-500 bg-opacity-20">
@@ -69,6 +73,7 @@ const Home: NextPage = () => {
             {t("index.title")}
           </Title>
           <Text className=" text-blue-gray-500">{t("index.title")}</Text>
+          <Text className=" text-blue-gray-500">{store.number}</Text>
         </motion.div>
         <motion.div
           initial={{ opacity: 0 }}
@@ -102,7 +107,20 @@ const Home: NextPage = () => {
             subtitle="index.automate.subtitle"
           />
         </div>
-        <div className=" h-[250px] w-full bg-blue-gray-500"></div>
+        <div className=" flex h-[250px] w-full items-center justify-center bg-blue-gray-500 text-white">
+          {/* <Button
+            onClick={() =>
+              createCommand.mutate({
+                default: true,
+                shortCut: "D",
+                title: "Decrese number",
+                function: "decrease",
+              })
+            }
+          >
+            Click me to create a command
+          </Button> */}
+        </div>
       </div>
     </div>
   );
