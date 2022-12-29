@@ -4,7 +4,7 @@ import type { Store } from "../types/Store";
 export const useCommands = (store: Store) => {
   const commands = {
     openSignUpDialog: () => {
-      alert("Open signidddn");
+      store.showDialog({ type: "signUpModal" });
     },
     increase: () => {
       store.increase(1);

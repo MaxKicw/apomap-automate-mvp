@@ -30,5 +30,23 @@
       "title": "Lädt..."
     },
     "placeholder": "⌘K - Tippe was Du machen willst!"
+  },
+  "signUpModal": {
+    "businessName": {
+      "placeholder": "Vollständiger Apothekenname",
+      "label": "Apothekenname"
+    },
+    "email": {
+      "placeholder": "info@apotheke.de",
+      "label": "E-Mail Adresse"
+    },
+    "password": {
+      "placeholder": "mindestens 6 stellig!",
+      "label": "Passwort"
+    },
+    "passwordRepeat": {
+      "placeholder": "Bitte wiederholen",
+      "label": "Passwort (wiederholen)"
+    }
   }
 }

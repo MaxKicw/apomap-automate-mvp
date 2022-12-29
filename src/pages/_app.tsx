@@ -10,6 +10,8 @@ import "../styles/globals.css";
 import Wrapper from "../features/core/Wrapper";
 import { MantineProvider } from "@mantine/core";
 
+import { DialogManager } from "../features/dialog/DialogManger";
+
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
@@ -18,6 +20,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <MantineProvider withGlobalStyles withNormalizeCSS>
       <SessionProvider session={session}>
         <Wrapper>
+          <DialogManager />
           <Component {...pageProps} />
         </Wrapper>
       </SessionProvider>

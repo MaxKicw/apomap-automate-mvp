@@ -32,6 +32,7 @@ export const CommandMenu: FunctionComponent = () => {
           "w-full border-0 p-6 text-blue-gray-500 focus:border-0 focus:border-primary-500"
         )}
       />
+
       <Command.List className="rounded-b-lg bg-white py-4  text-blue-gray-500">
         {loading && (
           <Command.Item className="p-1 px-3">
