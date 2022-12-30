@@ -5,7 +5,6 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import nextI18nConfig from "../../next-i18next.config.mjs";
 import { motion } from "framer-motion";
 import Image from "next/image.js";
-
 import { Button, Card, Space, Text, Title } from "@mantine/core";
 import type { FunctionComponent } from "react";
 import { CommandMenu } from "../features/cmdk/CommandMenu";
@@ -15,12 +14,12 @@ import car from "../../public/img/xiao_car.png";
 import pos from "../../public/img/kasse.png";
 import system from "../../public/img/abfrage.png";
 import { useStore } from "../hooks/useStore";
-import { trpc } from "../utils/trpc";
+import { useRouter } from "next/router.js";
 
 const FeatureCard: FunctionComponent<{
   title: string;
   subtitle: string;
-  image?: any;
+  image?: string;
 }> = ({ image, title, subtitle }) => {
   const { t } = useTranslation("common");
   return (
@@ -34,22 +33,36 @@ const FeatureCard: FunctionComponent<{
   );
 };
 
-export const Header: FunctionComponent = () => (
-  <div className="item-center flex flex-row justify-between px-10 py-4">
-    <div>
-      <Image src={logo} alt="apomap logo" width={90} />
+export const Header: FunctionComponent = () => {
+  const router = useRouter();
+  const { t } = useTranslation();
+  return (
+    <div className="item-center flex flex-row justify-between px-10 py-4">
+      <div>
+        <Image src={logo} alt="apomap logo" width={90} />
+      </div>
+      <div className="flex flex-row">
+        <Button
+          onClick={() => router.push("/auth/sign-in")}
+          radius="xl"
+          color="white"
+          variant="outline"
+        >
+          {t("common.terms.signIn")}
+        </Button>
+        <Space w="sm" />
+        <Button
+          onClick={() => router.push("/auth/sign-up")}
+          radius="xl"
+          color="blue"
+          variant="filled"
+        >
+          {t("common.terms.signUp")}
+        </Button>
+      </div>
     </div>
-    <div className="flex flex-row">
-      <Button radius="xl" color="white" variant="outline">
-        Sign in
-      </Button>
-      <Space w="sm" />
-      <Button radius="xl" color="blue" variant="filled">
-        Sign up
-      </Button>
-    </div>
-  </div>
-);
+  );
+};
 
 export interface SignInBoxProps {
   auth?: any;
@@ -58,7 +71,7 @@ export interface SignInBoxProps {
 const Home: NextPage = () => {
   const { t } = useTranslation("common");
   const store = useStore();
-  const createCommand = trpc.public.createCommand.useMutation();
+
   return (
     <div className="flex h-full w-full flex-col">
       <div className="z-2 h-full w-full  bg-primary-500 bg-opacity-20">
@@ -107,20 +120,7 @@ const Home: NextPage = () => {
             subtitle="index.automate.subtitle"
           />
         </div>
-        <div className=" flex h-[250px] w-full items-center justify-center bg-blue-gray-500 text-white">
-          {/* <Button
-            onClick={() =>
-              createCommand.mutate({
-                default: true,
-                shortCut: "D",
-                title: "Decrese number",
-                function: "decrease",
-              })
-            }
-          >
-            Click me to create a command
-          </Button> */}
-        </div>
+        <div className=" flex h-[250px] w-full items-center justify-center bg-blue-gray-500 text-white"></div>
       </div>
     </div>
   );

@@ -10,6 +10,11 @@
       "StackName": "amplify-apomapautomate-dev-190718",
       "StackId": "arn:aws:cloudformation:eu-central-1:691436347328:stack/amplify-apomapautomate-dev-190718/a29f6ed0-87a3-11ed-b871-025edb5bb18e",
       "AmplifyAppId": "d1j6m56jakk8m6"
+    },
+    "categories": {
+      "auth": {
+        "apomapautomate5f46179e": {}
+      }
     }
   }
 }

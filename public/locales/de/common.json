@@ -1,4 +1,11 @@
 {
+  "common": {
+    "terms": {
+      "signIn": "Einloggen",
+      "signUp": "Anmelden",
+      "back": "Zurück"
+    }
+  },
   "index": {
     "title": "Automatisiere deinen Botendienst und helfe damit!",
     "subtitle": "Mit apomap automate definierst du deine internen Botendienstprozesse und kannst sie dann vergessen!",
@@ -48,5 +55,8 @@
       "placeholder": "Bitte wiederholen",
       "label": "Passwort (wiederholen)"
     }
+  },
+  "codeConfirmation": {
+    "title": "Wir haben dir auf deine E-Mail {{email}} ein Code gesendet. Bitte gebe diesen im unteren Feld ein und bestätige."
   }
 }

@@ -21,6 +21,7 @@
     "@trpc/next": "^10.0.0",
     "@trpc/react-query": "^10.0.0",
     "@trpc/server": "^10.0.0",
+    "aws-amplify": "^5.0.8",
     "cmdk": "^0.1.21",
     "framer-motion": "^8.0.2",
     "i18next": "^22.4.6",
