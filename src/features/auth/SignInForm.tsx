@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useTranslation } from "next-i18next";
 import { useStore } from "../../hooks/useStore";
 import { Auth } from "aws-amplify";
+import { useRouter } from "next/router";
 
 export interface SignInFormProps {
   close?: boolean;
@@ -15,6 +16,7 @@ export const SignInForm: FunctionComponent<SignInFormProps> = ({
 }) => {
   const store = useStore();
   const { t } = useTranslation();
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const form = useForm({
     initialValues: {
@@ -36,8 +38,9 @@ export const SignInForm: FunctionComponent<SignInFormProps> = ({
           password: form.values.password,
         });
         store.setUser(user);
-        alert("Sign In Success");
+        router.replace("/dashboard");
       } catch (error) {
+        console.log(error);
       } finally {
         setLoading(false);
       }

@@ -58,5 +58,8 @@
   },
   "codeConfirmation": {
     "title": "Wir haben dir auf deine E-Mail {{email}} ein Code gesendet. Bitte gebe diesen im unteren Feld ein und bestätige."
+  },
+  "onboarding": {
+    "title": "Andecken"
   }
 }

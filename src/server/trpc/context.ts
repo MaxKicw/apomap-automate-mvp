@@ -1,12 +1,12 @@
 import { type inferAsyncReturnType } from "@trpc/server";
 import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
-import { type Session } from "next-auth";
+import type { CognitoUser } from "@aws-amplify/auth";
 
-import { getServerAuthSession } from "../common/get-server-auth-session";
 import { prisma } from "../db/client";
+import { withSSRContext } from "aws-amplify";
 
 type CreateContextOptions = {
-  session: Session | null;
+  user: CognitoUser | null;
 };
 
 /** Use this helper for:
@@ -16,7 +16,7 @@ type CreateContextOptions = {
  **/
 export const createContextInner = async (opts: CreateContextOptions) => {
   return {
-    session: opts.session,
+    user: opts.user,
     prisma,
   };
 };
@@ -26,13 +26,15 @@ export const createContextInner = async (opts: CreateContextOptions) => {
  * @link https://trpc.io/docs/context
  **/
 export const createContext = async (opts: CreateNextContextOptions) => {
-  const { req, res } = opts;
-
-  // Get the session from the server using the unstable_getServerSession wrapper function
-  const session = await getServerAuthSession({ req, res });
+  const { req } = opts;
+  const { Auth } = withSSRContext({ req });
+  let user = null;
+  try {
+    user = await Auth.currentAuthenticatedUser();
+  } catch (error) {}
 
   return await createContextInner({
-    session,
+    user,
   });
 };
 

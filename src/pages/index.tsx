@@ -1,9 +1,11 @@
+import type { NextApiRequest } from "next";
 import { type NextPage } from "next";
 import { useTranslation } from "next-i18next";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import nextI18nConfig from "../../next-i18next.config.mjs";
 import { motion } from "framer-motion";
+import type { StaticImageData } from "next/image.js";
 import Image from "next/image.js";
 import { Button, Card, Space, Text, Title } from "@mantine/core";
 import type { FunctionComponent } from "react";
@@ -14,12 +16,13 @@ import car from "../../public/img/xiao_car.png";
 import pos from "../../public/img/kasse.png";
 import system from "../../public/img/abfrage.png";
 import { useStore } from "../hooks/useStore";
-import { useRouter } from "next/router.js";
+import { useRouter } from "next/router";
+import { trpc } from "../utils/trpc";
 
 const FeatureCard: FunctionComponent<{
   title: string;
   subtitle: string;
-  image?: string;
+  image?: StaticImageData;
 }> = ({ image, title, subtitle }) => {
   const { t } = useTranslation("common");
   return (
@@ -36,29 +39,54 @@ const FeatureCard: FunctionComponent<{
 export const Header: FunctionComponent = () => {
   const router = useRouter();
   const { t } = useTranslation();
+  const { data: user } = trpc.protected.getAccountData.useQuery();
   return (
     <div className="item-center flex flex-row justify-between px-10 py-4">
       <div>
         <Image src={logo} alt="apomap logo" width={90} />
       </div>
       <div className="flex flex-row">
-        <Button
-          onClick={() => router.push("/auth/sign-in")}
-          radius="xl"
-          color="white"
-          variant="outline"
-        >
-          {t("common.terms.signIn")}
-        </Button>
-        <Space w="sm" />
-        <Button
-          onClick={() => router.push("/auth/sign-up")}
-          radius="xl"
-          color="blue"
-          variant="filled"
-        >
-          {t("common.terms.signUp")}
-        </Button>
+        {user ? (
+          <>
+            <Button
+              onClick={() => router.push("/auth/sign-in")}
+              radius="xl"
+              color="white"
+              variant="outline"
+            >
+              {t("header.dashboard")}
+            </Button>
+            <Space w="sm" />
+            <Button
+              onClick={() => router.push("/auth/sign-up")}
+              radius="xl"
+              color="blue"
+              variant="filled"
+            >
+              {t("common.terms.logOut")}
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              onClick={() => router.push("/auth/sign-in")}
+              radius="xl"
+              color="white"
+              variant="outline"
+            >
+              {t("common.terms.signIn")}
+            </Button>
+            <Space w="sm" />
+            <Button
+              onClick={() => router.push("/auth/sign-up")}
+              radius="xl"
+              color="blue"
+              variant="filled"
+            >
+              {t("common.terms.signUp")}
+            </Button>
+          </>
+        )}
       </div>
     </div>
   );
@@ -128,7 +156,12 @@ const Home: NextPage = () => {
 
 export default Home;
 
-export const getServerSideProps = async ({ locale }: { locale: string }) => {
+export const getServerSideProps = async ({
+  locale,
+}: {
+  locale: string;
+  req: NextApiRequest;
+}) => {
   const res = await serverSideTranslations(locale, ["common"], nextI18nConfig, [
     "en",
     "de",

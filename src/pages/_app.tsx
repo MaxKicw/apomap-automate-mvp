@@ -6,7 +6,7 @@ import nextI18nConfig from "../../next-i18next.config.mjs";
 // Configure Amplify for authentification
 import { Amplify } from "aws-amplify";
 import awsconfig from "../aws-exports";
-Amplify.configure(awsconfig);
+Amplify.configure({ ...awsconfig, ssr: true });
 
 import { trpc } from "../utils/trpc";
 
@@ -15,7 +15,6 @@ import Wrapper from "../features/core/Wrapper";
 import { MantineProvider } from "@mantine/core";
 
 import { DialogManager } from "../features/dialog/DialogManger";
-import { AuthProvider } from "../features/auth/AuthProvider";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -23,12 +22,10 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <MantineProvider withGlobalStyles withNormalizeCSS>
-      <AuthProvider>
-        <Wrapper>
-          <DialogManager />
-          <Component {...pageProps} />
-        </Wrapper>
-      </AuthProvider>
+      <Wrapper>
+        <DialogManager />
+        <Component {...pageProps} />
+      </Wrapper>
     </MantineProvider>
   );
 };

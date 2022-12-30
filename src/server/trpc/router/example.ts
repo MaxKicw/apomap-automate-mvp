@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { router, publicProcedure } from "../trpc";
-import { Auth } from "aws-amplify";
 
 export const exampleRouter = router({
   getDefaultCommands: publicProcedure.query(async ({ ctx }) => {
