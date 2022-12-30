@@ -6,7 +6,7 @@ import { prisma } from "../db/client";
 import { withSSRContext } from "aws-amplify";
 
 type CreateContextOptions = {
-  user: CognitoUser | null;
+  user: CognitoUser;
 };
 
 /** Use this helper for:

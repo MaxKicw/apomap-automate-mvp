@@ -20,7 +20,6 @@ export const SignUpForm: FunctionComponent<SignUpFormProps> = ({
   const router = useRouter();
   const form = useForm({
     initialValues: {
-      businessName: "",
       email: "",
       password: "",
       passwordRepeat: "",
@@ -39,9 +38,6 @@ export const SignUpForm: FunctionComponent<SignUpFormProps> = ({
         const { user } = await Auth.signUp({
           username: form.values.email,
           password: form.values.password,
-          attributes: {
-            "custom:businessName": form.values.businessName,
-          },
           autoSignIn: {
             enabled: true,
           },
@@ -60,11 +56,6 @@ export const SignUpForm: FunctionComponent<SignUpFormProps> = ({
 
   return (
     <div className="min-w-[400px]">
-      <TextInput
-        label={t("signUpModal.businessName.label")}
-        placeholder={t("signUpModal.businessName.placeholder")}
-        {...form.getInputProps("businessName")}
-      />
       <TextInput
         label={t("signUpModal.email.label")}
         placeholder={t("signUpModal.email.placeholder")}

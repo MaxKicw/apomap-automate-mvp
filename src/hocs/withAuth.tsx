@@ -9,10 +9,13 @@ export function withAuth(gssp: GetServerSideProps) {
     try {
       user = await Auth.currentAuthenticatedUser();
       if (user) {
-        const userData = await prisma?.user.findUnique({
+        const accountData = await prisma?.account.findUnique({
           where: { id: user.getUsername() },
         });
-        if (!userData && context.resolvedUrl.split("/")[1] !== "onboarding") {
+        if (
+          !accountData &&
+          context.resolvedUrl.split("/")[1] !== "onboarding"
+        ) {
           return {
             redirect: {
               destination: `/${context.locale}/onboarding`,

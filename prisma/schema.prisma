@@ -24,9 +24,10 @@ model User {
 }
 
 model Account {
-  id    String @id
+  id           String  @id @default(uuid())
   businessName String
-  email String
+  email        String
+  tasks        Task[]
 }
 
 model CommandOptions {
@@ -39,3 +40,16 @@ model CommandOptions {
   owner    User?   @relation(fields: [userId], references: [id])
   userId   String?
 }
+
+model Task {
+  id               String        @id @default(uuid())
+  jobNo            String?
+  customerName     String
+  owner            Account         @relation(fields: [ownerId], references: [id])
+  ownerId          String
+  createdAt   DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  lon Float
+  lat Float
+}
+
